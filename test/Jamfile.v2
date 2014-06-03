@@ -13,9 +13,9 @@ project
         <exception-handling>on
     ;
 
-run 1-throw_exception_test.cpp ;
-run 2-throw_exception_no_exceptions_test.cpp ;
-run 3-throw_exception_no_integration_test.cpp ;
-run 4-throw_exception_no_both_test.cpp ;
+run throw_exception_test.cpp ;
+run throw_exception_no_exceptions_test.cpp ;
+run throw_exception_no_integration_test.cpp ;
+run throw_exception_no_both_test.cpp ;
 
 compile-fail throw_exception_fail.cpp ;
