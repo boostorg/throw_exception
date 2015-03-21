@@ -197,7 +197,22 @@ boost
 
         template <class E>
         E const & set_info( E const &, throw_line const & );
+
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+        template <class E,class Tag,class T>
+        E const & set_info( E const &, error_info<Tag,T> && );
+
+        template <class E>
+        E const & set_info( E const &, throw_function && );
+
+        template <class E>
+        E const & set_info( E const &, throw_file && );
+
+        template <class E>
+        E const & set_info( E const &, throw_line && );
+#endif
         }
+
 
 #if defined(__GNUC__)
 # if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
@@ -257,6 +272,20 @@ boost
         template <class E,class Tag,class T>
         friend E const & exception_detail::set_info( E const &, error_info<Tag,T> const & );
 
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+        template <class E>
+        friend E const & exception_detail::set_info( E const &, throw_function && );
+
+        template <class E>
+        friend E const & exception_detail::set_info( E const &, throw_file && );
+
+        template <class E>
+        friend E const & exception_detail::set_info( E const &, throw_line && );
+
+        template <class E,class Tag,class T>
+        friend E const & exception_detail::set_info( E const &, error_info<Tag,T> && );
+#endif
+
         friend char const * exception_detail::get_diagnostic_information( exception const &, char const * );
 
         template <class>
@@ -309,6 +338,31 @@ boost
             x.throw_line_=y.v_;
             return x;
             }
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+        template <class E>
+        E const &
+        set_info( E const & x, throw_function && y )
+            {
+            x.throw_function_=y.v_;
+            return x;
+            }
+
+        template <class E>
+        E const &
+        set_info( E const & x, throw_file && y )
+            {
+            x.throw_file_=y.v_;
+            return x;
+            }
+
+        template <class E>
+        E const &
+        set_info( E const & x, throw_line && y )
+            {
+            x.throw_line_=y.v_;
+            return x;
+            }
+#endif
         }
 
     ////////////////////////////////////////////////////////////////////////
