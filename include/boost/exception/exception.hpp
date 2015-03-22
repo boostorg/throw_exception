@@ -12,6 +12,8 @@
 #pragma warning(push,1)
 #endif
 
+#include <boost/config.hpp>
+
 namespace
 boost
     {
