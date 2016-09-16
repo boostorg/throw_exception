@@ -28,7 +28,9 @@
 
 #include <boost/detail/workaround.hpp>
 #include <boost/config.hpp>
+#ifndef BOOST_NO_EXCEPTIONS
 #include <exception>
+#endif
 
 #if !defined( BOOST_EXCEPTION_DISABLE ) && defined( __BORLANDC__ ) && BOOST_WORKAROUND( __BORLANDC__, BOOST_TESTED_AT(0x593) )
 # define BOOST_EXCEPTION_DISABLE
@@ -53,7 +55,8 @@ namespace boost
 {
 #ifdef BOOST_NO_EXCEPTIONS
 
-void throw_exception( std::exception const & e ); // user defined
+template <typename T>
+void throw_exception( T const & e ); // user defined
 
 #else
 
