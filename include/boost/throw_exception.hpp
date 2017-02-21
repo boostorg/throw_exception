@@ -1,5 +1,8 @@
 #ifndef UUID_AA15E74A856F11E08B8D93F24824019B
 #define UUID_AA15E74A856F11E08B8D93F24824019B
+
+#include <boost/config.hpp>
+
 #if (__GNUC__*100+__GNUC_MINOR__>301) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
 #pragma GCC system_header
 #endif
@@ -27,7 +30,6 @@
 //
 
 #include <boost/detail/workaround.hpp>
-#include <boost/config.hpp>
 #include <exception>
 
 #if !defined( BOOST_EXCEPTION_DISABLE ) && defined( __BORLANDC__ ) && BOOST_WORKAROUND( __BORLANDC__, BOOST_TESTED_AT(0x593) )
