@@ -171,7 +171,7 @@ boost
         exception():
             throw_function_(0),
             throw_file_(0),
-            throw_line_(-1)
+            throw_line_(0)
             {
             }
 
