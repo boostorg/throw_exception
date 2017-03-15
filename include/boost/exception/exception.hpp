@@ -378,8 +378,6 @@ boost
 
     ////////////////////////////////////////////////////////////////////////
 
-#ifdef BOOST_EXCEPTION_ENABLE_EXCEPTION_INFO
-
 #if defined(__GNUC__)
 # if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
 #  pragma GCC visibility push (default)
@@ -443,22 +441,6 @@ boost
     namespace
     exception_detail
         {
-        typedef exception_info enable_error_info_base;
-        }
-
-#else
-
-    namespace
-    exception_detail
-        {
-        typedef exception enable_error_info_base;
-        }
-
-#endif
-
-    namespace
-    exception_detail
-        {
         struct large_size { char c[256]; };
         large_size dispatch_boost_exception( exception const * );
 
@@ -474,7 +456,7 @@ boost
         struct
         exception_injector:
             T,
-            exception_detail::enable_error_info_base
+            exception_info
             {
             explicit
             exception_injector( T const & x ):
