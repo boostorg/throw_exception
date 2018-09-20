@@ -10,7 +10,7 @@ add_library(Boost::throw_exception ALIAS boost_throw_exception)
 
 target_include_directories(boost_throw_exception INTERFACE include)
 
-target_link_libraries(boost_static_assert
+target_link_libraries(boost_throw_exception
     INTERFACE
         Boost::assert
         Boost::config
