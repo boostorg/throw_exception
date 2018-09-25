@@ -140,17 +140,8 @@ boost
             }
         };
 
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility push (default)
-# endif
-#endif
+    BOOST_SYMBOL_VISIBLE
     class exception;
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility pop
-# endif
-#endif
 
     namespace
     exception_detail
@@ -216,11 +207,7 @@ boost
         E const & set_info( E const &, throw_line const & );
         }
 
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility push (default)
-# endif
-#endif
+    BOOST_SYMBOL_VISIBLE
     class
     exception
         {
@@ -293,11 +280,6 @@ boost
         mutable char const * throw_file_;
         mutable int throw_line_;
         };
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility pop
-# endif
-#endif
 
     inline
     exception::
@@ -338,12 +320,8 @@ boost
     namespace
     exception_detail
         {
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility push (default)
-# endif
-#endif
         template <class T>
+        BOOST_SYMBOL_VISIBLE
         struct
         error_info_injector:
             public T,
@@ -359,11 +337,6 @@ boost
                 {
                 }
             };
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility pop
-# endif
-#endif
 
         struct large_size { char c[256]; };
         large_size dispatch_boost_exception( exception const * );
@@ -411,11 +384,7 @@ boost
     namespace
     exception_detail
         {
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility push (default)
-# endif
-#endif
+        BOOST_SYMBOL_VISIBLE
         class
         clone_base
             {
@@ -429,11 +398,6 @@ boost
                 {
                 }
             };
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility pop
-# endif
-#endif
 
         inline
         void
@@ -454,12 +418,8 @@ boost
             {
             }
 
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility push (default)
-# endif
-#endif
         template <class T>
+        BOOST_SYMBOL_VISIBLE
         class
         clone_impl:
             public T,
@@ -500,11 +460,6 @@ boost
                 }
             };
         }
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility pop
-# endif
-#endif
 
     template <class T>
     inline
