@@ -50,7 +50,7 @@ install:
   - xcopy /s /e /q %APPVEYOR_BUILD_FOLDER% libs\throw_exception
   - python tools/boostdep/depinst/depinst.py throw_exception
   - cmd /c bootstrap
-  - b2 headers
+  - b2 -d0 headers
 
 build: off
 
