@@ -5,12 +5,8 @@
 
 #ifndef UUID_274DA366004E11DCB1DDFE2E56D89593
 #define UUID_274DA366004E11DCB1DDFE2E56D89593
-#if (__GNUC__*100+__GNUC_MINOR__>301) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
-#pragma GCC system_header
-#endif
-#if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
-#pragma warning(push,1)
-#endif
+
+#include <boost/config.hpp>
 
 #ifdef BOOST_EXCEPTION_MINI_BOOST
 #include  <memory>
@@ -18,6 +14,13 @@ namespace boost { namespace exception_detail { using std::shared_ptr; } }
 #else
 namespace boost { template <class T> class shared_ptr; };
 namespace boost { namespace exception_detail { using boost::shared_ptr; } }
+#endif
+
+#if (__GNUC__*100+__GNUC_MINOR__>301) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
+#pragma GCC system_header
+#endif
+#if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
+#pragma warning(push,1)
 #endif
 
 namespace
