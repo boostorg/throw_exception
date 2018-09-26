@@ -143,8 +143,9 @@ boost
             }
         };
 
+    class
     BOOST_SYMBOL_VISIBLE
-    class exception;
+    exception;
 
     namespace
     exception_detail
@@ -210,8 +211,8 @@ boost
         E const & set_info( E const &, throw_line const & );
         }
 
-    BOOST_SYMBOL_VISIBLE
     class
+    BOOST_SYMBOL_VISIBLE
     exception
         {
         //<N3757>
@@ -324,8 +325,8 @@ boost
     exception_detail
         {
         template <class T>
-        BOOST_SYMBOL_VISIBLE
         struct
+        BOOST_SYMBOL_VISIBLE
         error_info_injector:
             public T,
             public exception
@@ -387,8 +388,8 @@ boost
     namespace
     exception_detail
         {
-        BOOST_SYMBOL_VISIBLE
         class
+        BOOST_SYMBOL_VISIBLE
         clone_base
             {
             public:
@@ -422,8 +423,8 @@ boost
             }
 
         template <class T>
-        BOOST_SYMBOL_VISIBLE
         class
+        BOOST_SYMBOL_VISIBLE
         clone_impl:
             public T,
             public virtual clone_base
