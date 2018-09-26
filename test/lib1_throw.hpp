@@ -24,7 +24,7 @@
 namespace lib1
 {
 
-struct exception: public std::exception
+struct BOOST_SYMBOL_VISIBLE exception: public std::exception
 {
 };
 
