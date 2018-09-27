@@ -14,6 +14,8 @@ run throw_exception_no_both_test.cpp ;
 
 compile-fail throw_exception_fail.cpp ;
 
+run throw_exception_test2.cpp ;
+
 lib lib1_throw : lib1_throw.cpp : <define>LIB1_SOURCE=1 <link>shared:<define>LIB1_DYN_LINK=1 : : <link>shared:<define>LIB1_DYN_LINK=1 ;
 lib lib2_throw : lib2_throw.cpp : <define>LIB2_SOURCE=1 <link>shared:<define>LIB2_DYN_LINK=1 : : <link>shared:<define>LIB2_DYN_LINK=1 ;
 lib lib3_throw : lib3_throw.cpp : <define>LIB3_SOURCE=1 <link>shared:<define>LIB3_DYN_LINK=1 : : <link>shared:<define>LIB3_DYN_LINK=1 ;
