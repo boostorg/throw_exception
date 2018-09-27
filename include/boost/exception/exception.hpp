@@ -472,6 +472,18 @@ boost
         {
         return exception_detail::clone_impl<T>(x);
         }
+
+    namespace
+    exception_detail
+        {
+        template <class T>
+        inline
+        clone_impl<typename enable_error_info_return_type<T>::type>
+        enable_both( T const & x )
+            {
+            return enable_current_exception( enable_error_info( x ) );
+            }
+        }
     }
 
 #if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
