@@ -473,15 +473,48 @@ boost
         return exception_detail::clone_impl<T>(x);
         }
 
+    template <class T>
+    struct
+    BOOST_SYMBOL_VISIBLE
+    wrapexcept:
+        public exception_detail::clone_impl<typename exception_detail::enable_error_info_return_type<T>::type>
+        {
+        typedef exception_detail::clone_impl<typename exception_detail::enable_error_info_return_type<T>::type> base_type;
+        public:
+        explicit
+        wrapexcept( typename exception_detail::enable_error_info_return_type<T>::type const & x ):
+            base_type( x )
+            {
+            }
+
+        ~wrapexcept() throw()
+            {
+            }
+        };
+
     namespace
     exception_detail
         {
         template <class T>
+        struct
+        remove_error_info_injector
+            {
+            typedef T type;
+            };
+
+        template <class T>
+        struct
+        remove_error_info_injector< error_info_injector<T> >
+            {
+            typedef T type;
+            };
+
+        template <class T>
         inline
-        clone_impl<typename enable_error_info_return_type<T>::type>
+        wrapexcept<typename remove_error_info_injector<T>::type>
         enable_both( T const & x )
             {
-            return enable_current_exception( enable_error_info( x ) );
+            return wrapexcept<typename remove_error_info_injector<T>::type>( enable_error_info( x ) );
             }
         }
     }
