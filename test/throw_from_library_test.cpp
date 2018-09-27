@@ -10,6 +10,7 @@
 #include "lib3_throw.hpp"
 #include <boost/exception/exception.hpp>
 #include <boost/exception_ptr.hpp>
+#include <boost/exception/get_error_info.hpp>
 #include <boost/core/lightweight_test.hpp>
 
 void test_catch_by_type()
@@ -52,11 +53,27 @@ void test_exception_ptr()
     }
 }
 
+void test_throw_line()
+{
+    try
+    {
+        lib3::f();
+    }
+    catch( boost::exception const & x )
+    {
+        int const * line = boost::get_error_info<boost::throw_line>( x );
+
+        BOOST_TEST( line != 0 );
+        BOOST_TEST_EQ( *line, 13 );
+    }
+}
+
 int main()
 {
     test_catch_by_type();
     test_catch_by_exception();
     test_exception_ptr();
+    test_throw_line();
 
     return boost::report_errors();
 }
