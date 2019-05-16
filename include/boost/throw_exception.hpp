@@ -38,7 +38,15 @@
 # include <boost/current_function.hpp>
 # define BOOST_THROW_EXCEPTION_CURRENT_FUNCTION BOOST_CURRENT_FUNCTION
 #endif
-# define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_THROW_EXCEPTION_CURRENT_FUNCTION,__FILE__,__LINE__)
+// Explicitly cast to const char * here to silence clang-tidy warning
+// (https://bugs.llvm.org/show_bug.cgi?id=28480)
+#define BOOST_THROW_EXCEPTION( x )                                           \
+    ::boost::exception_detail::throw_exception_(                             \
+        ( x ),                                                               \
+        static_cast<const char *>( BOOST_THROW_EXCEPTION_CURRENT_FUNCTION ), \
+        __FILE__,                                                            \
+        __LINE__                                                             \
+    )
 #else
 # define BOOST_THROW_EXCEPTION(x) ::boost::throw_exception(x)
 #endif
