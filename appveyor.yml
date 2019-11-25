@@ -22,6 +22,7 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       TOOLSET: clang-win
       CXXSTD: 14,17
+      ADDRMD: 64
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       TOOLSET: msvc-14.2
       CXXSTD: 14,17
@@ -59,4 +60,5 @@ build: off
 test_script:
   - PATH=%ADDPATH%%PATH%
   - if not "%CXXSTD%" == "" set CXXSTD=cxxstd=%CXXSTD%
-  - b2 -j3 libs/throw_exception/test toolset=%TOOLSET% %CXXSTD% variant=debug,release
+  - if not "%ADDRMD%" == "" set ADDRMD=address-model=%ADDRMD%
+  - b2 -j3 libs/throw_exception/test toolset=%TOOLSET% %CXXSTD% %ADDRMD% variant=debug,release
