@@ -54,13 +54,13 @@ BOOST_NORETURN void throw_exception( std::exception const & e, boost::source_loc
 namespace boost
 {
 
-template<class E> BOOST_NORETURN inline void throw_exception( E const & e )
+template<class E> BOOST_NORETURN void throw_exception( E const & e )
 {
     throw_exception_assert_compatibility( e );
     throw e;
 }
 
-template<class E> BOOST_NORETURN inline void throw_exception( E const & e, boost::source_location const & )
+template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::source_location const & )
 {
     throw_exception_assert_compatibility( e );
     throw e;
@@ -145,13 +145,13 @@ public:
 
 // boost::throw_exception
 
-template<class E> BOOST_NORETURN inline void throw_exception( E const & e )
+template<class E> BOOST_NORETURN void throw_exception( E const & e )
 {
     throw_exception_assert_compatibility( e );
     throw wrapexcept<E>( e );
 }
 
-template<class E> BOOST_NORETURN inline void throw_exception( E const & e, boost::source_location const & loc )
+template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::source_location const & loc )
 {
     throw_exception_assert_compatibility( e );
     throw wrapexcept<E>( e, loc );
