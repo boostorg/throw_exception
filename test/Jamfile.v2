@@ -24,3 +24,6 @@ lib lib3_throw : lib3_throw.cpp : <define>LIB3_SOURCE=1 <link>shared:<define>LIB
 
 run throw_from_library_test.cpp lib1_throw lib2_throw lib3_throw : : : <link>static : throw_from_library_static ;
 run throw_from_library_test.cpp lib1_throw lib2_throw lib3_throw : : : <link>shared : throw_from_library_shared ;
+
+run throw_exception_nx_test.cpp : : : <exception-handling>off ;
+run throw_exception_nx_test2.cpp : : : <exception-handling>off ;
