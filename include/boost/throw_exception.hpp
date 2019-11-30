@@ -117,10 +117,13 @@ public:
 
     explicit wrapexcept( E const & e ): E( e )
     {
+        boost::exception_detail::copy_boost_exception( this, &e );
     }
 
     explicit wrapexcept( E const & e, boost::source_location const & loc ): E( e )
     {
+        boost::exception_detail::copy_boost_exception( this, &e );
+
         set_info( *this, throw_file( loc.file_name() ) );
         set_info( *this, throw_line( loc.line() ) );
         set_info( *this, throw_function( loc.function_name() ) );

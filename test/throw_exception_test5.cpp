@@ -18,6 +18,10 @@ class my_exception: public std::exception, public boost::exception
 {
 };
 
+class my_exception2: public std::exception, public virtual boost::exception
+{
+};
+
 int main()
 {
     try
@@ -44,6 +48,48 @@ int main()
     try
     {
         BOOST_THROW_EXCEPTION( my_exception() << error_code( 123 ) << error_string( "error%%string" ) );
+    }
+    catch( boost::exception const & x )
+    {
+        {
+            int const * code = boost::get_error_info<error_code>( x );
+
+            BOOST_TEST( code != 0 );
+            BOOST_TEST_EQ( *code, 123 );
+        }
+
+        {
+            std::string const * str = boost::get_error_info<error_string>( x );
+
+            BOOST_TEST( str != 0 );
+            BOOST_TEST_EQ( *str, "error%%string" );
+        }
+    }
+
+    try
+    {
+        boost::throw_exception( my_exception2() << error_code( 123 ) << error_string( "error%%string" ) );
+    }
+    catch( boost::exception const & x )
+    {
+        {
+            int const * code = boost::get_error_info<error_code>( x );
+
+            BOOST_TEST( code != 0 );
+            BOOST_TEST_EQ( *code, 123 );
+        }
+
+        {
+            std::string const * str = boost::get_error_info<error_string>( x );
+
+            BOOST_TEST( str != 0 );
+            BOOST_TEST_EQ( *str, "error%%string" );
+        }
+    }
+
+    try
+    {
+        BOOST_THROW_EXCEPTION( my_exception2() << error_code( 123 ) << error_string( "error%%string" ) );
     }
     catch( boost::exception const & x )
     {
