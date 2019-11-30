@@ -113,16 +113,27 @@ private:
         ~deleter() { delete p_; }
     };
 
+private:
+
+    void copy_from( void const* )
+    {
+    }
+
+    void copy_from( boost::exception const* p )
+    {
+        static_cast<boost::exception&>( *this ) = *p;
+    }
+
 public:
 
     explicit wrapexcept( E const & e ): E( e )
     {
-        boost::exception_detail::copy_boost_exception( this, &e );
+        copy_from( &e );
     }
 
     explicit wrapexcept( E const & e, boost::source_location const & loc ): E( e )
     {
-        boost::exception_detail::copy_boost_exception( this, &e );
+        copy_from( &e );
 
         set_info( *this, throw_file( loc.file_name() ) );
         set_info( *this, throw_line( loc.line() ) );
