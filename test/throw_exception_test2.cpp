@@ -16,13 +16,19 @@ class my_exception2: public std::exception, public boost::exception
 {
 };
 
+class my_exception3: public std::exception, public virtual boost::exception
+{
+};
+
 int main()
 {
     BOOST_TEST_THROWS( boost::throw_exception( my_exception() ), boost::exception );
     BOOST_TEST_THROWS( boost::throw_exception( my_exception2() ), boost::exception );
+    BOOST_TEST_THROWS( boost::throw_exception( my_exception3() ), boost::exception );
 
     BOOST_TEST_THROWS( BOOST_THROW_EXCEPTION( my_exception() ), boost::exception );
     BOOST_TEST_THROWS( BOOST_THROW_EXCEPTION( my_exception2() ), boost::exception );
+    BOOST_TEST_THROWS( BOOST_THROW_EXCEPTION( my_exception3() ), boost::exception );
 
     return boost::report_errors();
 }

@@ -17,6 +17,10 @@ class my_exception2: public std::exception, public boost::exception
 {
 };
 
+class my_exception3: public std::exception, public virtual boost::exception
+{
+};
+
 int main()
 {
     try
@@ -45,6 +49,18 @@ int main()
 
     try
     {
+        boost::throw_exception( my_exception3() );
+    }
+    catch( ... )
+    {
+        boost::exception_ptr p = boost::current_exception();
+
+        BOOST_TEST_THROWS( boost::rethrow_exception( p ), my_exception3 );
+        BOOST_TEST_THROWS( boost::rethrow_exception( p ), boost::exception );
+    }
+
+    try
+    {
         BOOST_THROW_EXCEPTION( my_exception() );
     }
     catch( ... )
@@ -64,6 +80,18 @@ int main()
         boost::exception_ptr p = boost::current_exception();
 
         BOOST_TEST_THROWS( boost::rethrow_exception( p ), my_exception2 );
+        BOOST_TEST_THROWS( boost::rethrow_exception( p ), boost::exception );
+    }
+
+    try
+    {
+        BOOST_THROW_EXCEPTION( my_exception3() );
+    }
+    catch( ... )
+    {
+        boost::exception_ptr p = boost::current_exception();
+
+        BOOST_TEST_THROWS( boost::rethrow_exception( p ), my_exception3 );
         BOOST_TEST_THROWS( boost::rethrow_exception( p ), boost::exception );
     }
 
