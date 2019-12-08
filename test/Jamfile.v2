@@ -8,14 +8,19 @@
 
 import testing ;
 
-project : requirements <warnings>extra <warnings-as-errors>on ;
+project : requirements
+  <warnings>extra
+  <toolset>msvc:<warnings-as-errors>on
+  <toolset>clang:<warnings-as-errors>on
+  <toolset>gcc:<warnings-as-errors>on
+  <toolset>gcc:<cxxflags>-Wshadow ;
 
 run throw_exception_test.cpp ;
 run throw_exception_no_exceptions_test.cpp ;
 run throw_exception_no_integration_test.cpp ;
 run throw_exception_no_both_test.cpp ;
 
-compile-fail throw_exception_fail.cpp : -<warnings-as-errors>on ;
+compile-fail throw_exception_fail.cpp : <warnings-as-errors>off ;
 
 run throw_exception_test2.cpp ;
 run throw_exception_test3.cpp ;
