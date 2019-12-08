@@ -5,6 +5,11 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(__clang__)
+# pragma clang diagnostic ignored "-Wpotentially-evaluated-expression"
+# pragma clang diagnostic ignored "-Wdelete-non-abstract-non-virtual-dtor"
+#endif
+
 #include <boost/throw_exception.hpp>
 #include <boost/exception/get_error_info.hpp>
 #include <boost/exception/info.hpp>

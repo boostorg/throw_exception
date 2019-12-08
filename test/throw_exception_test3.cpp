@@ -5,13 +5,19 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/throw_exception.hpp>
-#include <boost/exception_ptr.hpp>
-#include <boost/core/lightweight_test.hpp>
-
 #if defined(_MSC_VER)
 # pragma warning(disable: 4702) // unreachable code
 #endif
+
+#if defined(__clang__)
+# pragma clang diagnostic ignored "-Wpotentially-evaluated-expression"
+# pragma clang diagnostic ignored "-Wdelete-non-abstract-non-virtual-dtor"
+# pragma clang diagnostic ignored "-Wunused-parameter"
+#endif
+
+#include <boost/throw_exception.hpp>
+#include <boost/exception_ptr.hpp>
+#include <boost/core/lightweight_test.hpp>
 
 class my_exception: public std::exception
 {
