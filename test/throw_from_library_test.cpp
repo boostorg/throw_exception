@@ -13,6 +13,10 @@
 #include <boost/exception/get_error_info.hpp>
 #include <boost/core/lightweight_test.hpp>
 
+#if defined(_MSC_VER)
+# pragma warning(disable: 4702) // unreachable code
+#endif
+
 void test_catch_by_type()
 {
     BOOST_TEST_THROWS( lib1::f(), lib1::exception );
