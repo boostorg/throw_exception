@@ -7,6 +7,7 @@
 
 #if defined(__clang__)
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wunknown-warning-option"
 # pragma clang diagnostic ignored "-Wpotentially-evaluated-expression"
 # pragma clang diagnostic ignored "-Wdelete-non-abstract-non-virtual-dtor"
 #endif
