@@ -10,6 +10,7 @@
 #endif
 
 #if defined(__clang__)
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wpotentially-evaluated-expression"
 # pragma clang diagnostic ignored "-Wdelete-non-abstract-non-virtual-dtor"
 # pragma clang diagnostic ignored "-Wunused-parameter"
