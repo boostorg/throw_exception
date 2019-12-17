@@ -1,5 +1,5 @@
-#ifndef UUID_AA15E74A856F11E08B8D93F24824019B
-#define UUID_AA15E74A856F11E08B8D93F24824019B
+#ifndef BOOST_THROW_EXCEPTION_HPP_INCLUDED
+#define BOOST_THROW_EXCEPTION_HPP_INCLUDED
 
 // MS compatible compilers support #pragma once
 
@@ -179,4 +179,4 @@ template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::sourc
 
 #define BOOST_THROW_EXCEPTION(x) ::boost::throw_exception(x, BOOST_CURRENT_LOCATION)
 
-#endif // #ifndef UUID_AA15E74A856F11E08B8D93F24824019B
+#endif // #ifndef BOOST_THROW_EXCEPTION_HPP_INCLUDED

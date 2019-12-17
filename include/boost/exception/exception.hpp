@@ -3,8 +3,8 @@
 //Distributed under the Boost Software License, Version 1.0. (See accompanying
 //file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef UUID_274DA366004E11DCB1DDFE2E56D89593
-#define UUID_274DA366004E11DCB1DDFE2E56D89593
+#ifndef BOOST_UUID_274DA366004E11DCB1DDFE2E56D89593
+#define BOOST_UUID_274DA366004E11DCB1DDFE2E56D89593
 
 #include <boost/config.hpp>
 
@@ -478,4 +478,5 @@ boost
 #if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
 #pragma warning(pop)
 #endif
-#endif
+
+#endif // #ifndef BOOST_UUID_274DA366004E11DCB1DDFE2E56D89593
