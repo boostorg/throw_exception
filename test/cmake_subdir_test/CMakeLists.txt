@@ -8,6 +8,7 @@ project(cmake_subdir_test LANGUAGES CXX)
 
 add_subdirectory(../../../assert boostorg/assert)
 add_subdirectory(../../../config boostorg/config)
+add_subdirectory(../../../throw_exception boostorg/throw_exception)
 
 add_executable(main main.cpp)
 target_link_libraries(main Boost::throw_exception)
