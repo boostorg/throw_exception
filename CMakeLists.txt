@@ -22,3 +22,9 @@ if(BOOST_SUPERPROJECT_VERSION)
   boost_install(TARGETS boost_throw_exception HEADER_DIRECTORY include/)
 
 endif()
+
+if(BUILD_TESTING)
+
+  add_subdirectory(test)
+
+endif()

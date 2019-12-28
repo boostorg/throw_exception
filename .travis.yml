@@ -305,6 +305,37 @@ matrix:
       compiler: clang++
       env: TOOLSET=clang COMPILER=clang++ CXXSTD=03,11,14,1z
 
+    - os: linux
+      env: CMAKE=1
+      script:
+        - mkdir __build__ && cd __build__
+        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_DEBUG=1 ..
+        - ctest --output-on-failure -R boost_throw_exception
+
+    - os: linux
+      env: CMAKE_SUBDIR=1
+      install:
+        - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
+        - git clone -b $BOOST_BRANCH https://github.com/boostorg/assert.git ../assert
+        - git clone -b $BOOST_BRANCH https://github.com/boostorg/config.git ../config
+        - git clone -b $BOOST_BRANCH https://github.com/boostorg/core.git ../core
+      script:
+        - cd test/cmake_subdir_test && mkdir __build__ && cd __build__
+        - cmake ..
+        - cmake --build .
+        - cmake --build . --target check
+
+    - os: linux
+      env: CMAKE_INSTALL=1
+      script:
+        - mkdir __build__ && cd __build__
+        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_DEBUG=1 -DBOOST_INCLUDE_LIBRARIES="assert;config;throw_exception" -DCMAKE_INSTALL_PREFIX=~/.local ..
+        - cmake --build . --target install
+        - cd ../libs/throw_exception/test/cmake_install_test && mkdir __build__ && cd __build__
+        - cmake -DCMAKE_INSTALL_PREFIX=~/.local ..
+        - cmake --build .
+        - cmake --build . --target check
+
 install:
   - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
   - cd ..

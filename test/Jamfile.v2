@@ -20,7 +20,8 @@ run throw_exception_no_exceptions_test.cpp ;
 run throw_exception_no_integration_test.cpp ;
 run throw_exception_no_both_test.cpp ;
 
-compile-fail throw_exception_fail.cpp : <warnings-as-errors>off ;
+compile-fail throw_exception_fail.cpp
+  : <warnings-as-errors>off ;
 
 run throw_exception_test2.cpp ;
 run throw_exception_test3.cpp ;
