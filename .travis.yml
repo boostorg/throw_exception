@@ -159,6 +159,7 @@ matrix:
             - clang-3.4
 
     - os: linux
+      dist: trusty
       compiler: clang++-3.5
       env: TOOLSET=clang COMPILER=clang++-3.5 CXXSTD=03,11,14,1z
       addons:
