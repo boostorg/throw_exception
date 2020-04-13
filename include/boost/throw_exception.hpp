@@ -140,7 +140,7 @@ public:
         set_info( *this, throw_function( loc.function_name() ) );
     }
 
-    virtual boost::exception_detail::clone_base const * clone() const
+    virtual boost::exception_detail::clone_base const * clone() const BOOST_OVERRIDE
     {
         wrapexcept * p = new wrapexcept( *this );
         deleter del = { p };
@@ -151,7 +151,7 @@ public:
         return p;
     }
 
-    virtual void rethrow() const
+    virtual void rethrow() const BOOST_OVERRIDE
     {
         throw *this;
     }
