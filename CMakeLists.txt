@@ -16,13 +16,6 @@ target_link_libraries(boost_throw_exception
     Boost::config
 )
 
-if(BOOST_SUPERPROJECT_VERSION)
-
-  include(BoostInstall)
-  boost_install(TARGETS boost_throw_exception HEADER_DIRECTORY include/)
-
-endif()
-
 if(BUILD_TESTING)
 
   add_subdirectory(test)
