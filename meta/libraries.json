@@ -7,7 +7,7 @@
     ],
     "maintainers": [
         "Emil Dotchevski <emil -at- revergestudios.com>",
-        "Peter Dimov <pdimov -at- pdimov.com>"
+        "Peter Dimov <pdimov -at- gmail.com>"
     ],
     "description": "A common infrastructure for throwing exceptions from Boost libraries.",
     "category": [
