@@ -49,26 +49,7 @@ BOOST_NORETURN void throw_exception( std::exception const & e, boost::source_loc
 
 } // namespace boost
 
-#elif defined( BOOST_EXCEPTION_DISABLE )
-
-namespace boost
-{
-
-template<class E> BOOST_NORETURN void throw_exception( E const & e )
-{
-    throw_exception_assert_compatibility( e );
-    throw e;
-}
-
-template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::source_location const & )
-{
-    throw_exception_assert_compatibility( e );
-    throw e;
-}
-
-} // namespace boost
-
-#else // !defined( BOOST_NO_EXCEPTIONS ) && !defined( BOOST_EXCEPTION_DISABLE )
+#else // !defined( BOOST_NO_EXCEPTIONS )
 
 #include <boost/exception/exception.hpp>
 
@@ -157,6 +138,31 @@ public:
     }
 };
 
+} // namespace boost
+
+#if defined( BOOST_EXCEPTION_DISABLE )
+
+namespace boost
+{
+
+template<class E> BOOST_NORETURN void throw_exception( E const & e )
+{
+    throw_exception_assert_compatibility( e );
+    throw e;
+}
+
+template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::source_location const & )
+{
+    throw_exception_assert_compatibility( e );
+    throw e;
+}
+
+} // namespace boost
+
+#else // !defined( BOOST_EXCEPTION_DISABLE )
+
+namespace boost
+{
 // boost::throw_exception
 
 template<class E> BOOST_NORETURN void throw_exception( E const & e )
@@ -173,7 +179,9 @@ template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::sourc
 
 } // namespace boost
 
-#endif
+#endif // # if defined( BOOST_EXCEPTION_DISABLE )
+
+#endif // # if defined( BOOST_NO_EXCEPTIONS )
 
 // BOOST_THROW_EXCEPTION
 
