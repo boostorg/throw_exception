@@ -37,3 +37,5 @@ run throw_from_library_test.cpp lib1_throw lib2_throw lib3_throw : : : <link>sha
 
 run throw_exception_nx_test.cpp : : : <exception-handling>off ;
 run throw_exception_nx_test2.cpp : : : <exception-handling>off ;
+
+run make_exception_ptr_test.cpp ;
