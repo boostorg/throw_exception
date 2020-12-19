@@ -39,3 +39,4 @@ run throw_exception_nx_test.cpp : : : <exception-handling>off ;
 run throw_exception_nx_test2.cpp : : : <exception-handling>off ;
 
 run make_exception_ptr_test.cpp ;
+run make_exception_ptr_test2.cpp ;
