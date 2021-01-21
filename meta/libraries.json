@@ -12,5 +12,6 @@
     "description": "A common infrastructure for throwing exceptions from Boost libraries.",
     "category": [
         "Miscellaneous"
-    ]
+    ],
+    "cxxstd": "03"
 }
