@@ -28,7 +28,7 @@ void throw_exception( std::exception const &, boost::source_location const & loc
     int r = 0;
 
     if( std::strcmp( loc.file_name(), __FILE__ ) != 0 ) ++r;
-    if( loc.line() != 18 ) ++r;
+    if( loc.line() != 19 ) ++r;
 
     std::exit( r );
 }
