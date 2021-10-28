@@ -9,6 +9,8 @@ Peter Dimov, Emil Dotchevski
 :toc: left
 :idprefix:
 :docinfo: private-footer
+:source-highlighter: rouge
+:source-language: c++
 
 :leveloffset: +1
 
