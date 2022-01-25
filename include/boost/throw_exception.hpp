@@ -41,7 +41,14 @@ BOOST_NORETURN void throw_exception( std::exception const & e, boost::source_loc
 
 #endif
 
-// boost::wrapexcept<E>
+// has_source_location
+
+struct has_source_location
+{
+    virtual boost::source_location location() const BOOST_NOEXCEPT = 0;
+};
+
+// wrapexcept<E>
 
 namespace detail
 {
@@ -66,7 +73,19 @@ template<class E, class B> struct wrapexcept_add_base<E, B, 2>
 
 } // namespace detail
 
-template<class E> struct BOOST_SYMBOL_VISIBLE wrapexcept:
+#if !defined(BOOST_NO_CXX11_HDR_EXCEPTION)
+
+template<class E, int cxxstd = 11> struct BOOST_SYMBOL_VISIBLE wrapexcept;
+
+#else
+
+template<class E, int cxxstd = 98> struct BOOST_SYMBOL_VISIBLE wrapexcept;
+
+#endif
+
+// C++98 version for backward compatibility
+
+template<class E> struct BOOST_SYMBOL_VISIBLE wrapexcept<E, 98>:
     public detail::wrapexcept_add_base<E, boost::exception_detail::clone_base>::type,
     public E,
     public detail::wrapexcept_add_base<E, boost::exception>::type
@@ -131,6 +150,58 @@ public:
     }
 };
 
+// C++11 version
+
+template<class E> struct BOOST_SYMBOL_VISIBLE wrapexcept<E, 11>:
+    public E,
+    public has_source_location
+{
+private:
+
+    boost::source_location loc_;
+
+private:
+
+    void copy_from( void const* )
+    {
+    }
+
+    void copy_from( boost::exception const* p )
+    {
+        static_cast<boost::exception&>( *this ) = *p;
+    }
+
+    template<class T> void set_info_impl( void*, T const& )
+    {
+    }
+
+    template<class T> void set_info_impl( boost::exception * p, T const& t )
+    {
+        exception_detail::set_info( *p, t );
+    }
+
+public:
+
+    explicit wrapexcept( E const & e ): E( e )
+    {
+        copy_from( &e );
+    }
+
+    explicit wrapexcept( E const & e, boost::source_location const & loc ): E( e ), loc_( loc )
+    {
+        copy_from( &e );
+
+        set_info_impl( this, throw_file( loc.file_name() ) );
+        set_info_impl( this, throw_line( loc.line() ) );
+        set_info_impl( this, throw_function( loc.function_name() ) );
+    }
+
+    virtual boost::source_location location() const BOOST_NOEXCEPT
+    {
+        return loc_;
+    }
+};
+
 // All boost exceptions are required to derive from std::exception,
 // to ensure compatibility with BOOST_NO_EXCEPTIONS.
 
@@ -154,18 +225,32 @@ template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::sourc
     throw e;
 }
 
-#else // defined( BOOST_EXCEPTION_DISABLE )
+#elif !defined(BOOST_NO_CXX11_HDR_EXCEPTION)
 
 template<class E> BOOST_NORETURN void throw_exception( E const & e )
 {
     throw_exception_assert_compatibility( e );
-    throw wrapexcept<E>( e );
+    throw e;
 }
 
 template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::source_location const & loc )
 {
     throw_exception_assert_compatibility( e );
-    throw wrapexcept<E>( e, loc );
+    throw wrapexcept<E, 11>( e, loc );
+}
+
+#else // C++98
+
+template<class E> BOOST_NORETURN void throw_exception( E const & e )
+{
+    throw_exception_assert_compatibility( e );
+    throw wrapexcept<E, 98>( e );
+}
+
+template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::source_location const & loc )
+{
+    throw_exception_assert_compatibility( e );
+    throw wrapexcept<E, 98>( e, loc );
 }
 
 #endif // defined( BOOST_EXCEPTION_DISABLE )
