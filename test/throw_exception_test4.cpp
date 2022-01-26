@@ -9,10 +9,6 @@
 #include <boost/exception/get_error_info.hpp>
 #include <boost/detail/lightweight_test.hpp>
 
-class my_exception: public std::exception
-{
-};
-
 class my_exception2: public std::exception, public boost::exception
 {
 };
@@ -23,38 +19,6 @@ class my_exception3: public std::exception, public virtual boost::exception
 
 int main()
 {
-    try
-    {
-        BOOST_THROW_EXCEPTION( my_exception() );
-    }
-    catch( boost::exception const & x )
-    {
-        {
-            char const * const * file = boost::get_error_info<boost::throw_file>( x );
-
-            BOOST_TEST( file != 0 );
-            BOOST_TEST_CSTR_EQ( *file, __FILE__ );
-        }
-
-        {
-            int const * line = boost::get_error_info<boost::throw_line>( x );
-
-            BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 28 );
-        }
-
-        {
-            char const * const * function = boost::get_error_info<boost::throw_function>( x );
-
-            BOOST_TEST( function != 0 );
-            BOOST_TEST_CSTR_EQ( *function, BOOST_CURRENT_FUNCTION );
-        }
-    }
-    catch( ... )
-    {
-        BOOST_ERROR( "BOOST_THROW_EXCEPTION( my_exception() ) didn't throw boost::exception" );
-    }
-
     try
     {
         BOOST_THROW_EXCEPTION( my_exception2() );
@@ -72,7 +36,7 @@ int main()
             int const * line = boost::get_error_info<boost::throw_line>( x );
 
             BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 60 );
+            BOOST_TEST_EQ( *line, 24 );
         }
 
         {
@@ -104,7 +68,7 @@ int main()
             int const * line = boost::get_error_info<boost::throw_line>( x );
 
             BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 92 );
+            BOOST_TEST_EQ( *line, 56 );
         }
 
         {
