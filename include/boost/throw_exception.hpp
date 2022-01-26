@@ -197,11 +197,6 @@ public:
         set_info_impl( this, throw_line( loc.line() ) );
         set_info_impl( this, throw_function( loc.function_name() ) );
     }
-
-    virtual boost::source_location location() const BOOST_NOEXCEPT
-    {
-        return loc_;
-    }
 };
 
 // All boost exceptions are required to derive from std::exception,
