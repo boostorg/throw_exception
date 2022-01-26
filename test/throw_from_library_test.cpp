@@ -20,6 +20,8 @@
 #include "lib1_throw.hpp"
 #include "lib2_throw.hpp"
 #include "lib3_throw.hpp"
+#include "lib4_throw.hpp"
+#include "lib5_throw.hpp"
 #include <boost/exception/exception.hpp>
 #include <boost/exception_ptr.hpp>
 #include <boost/exception/get_error_info.hpp>
@@ -30,12 +32,14 @@ void test_catch_by_type()
     BOOST_TEST_THROWS( lib1::f(), lib1::exception );
     BOOST_TEST_THROWS( lib2::f(), lib2::exception );
     BOOST_TEST_THROWS( lib3::f(), lib3::exception );
+    BOOST_TEST_THROWS( lib4::f(), lib4::exception );
+    BOOST_TEST_THROWS( lib5::f(), lib5::exception );
 }
 
 void test_catch_by_exception()
 {
-    BOOST_TEST_THROWS( lib2::f(), boost::exception );
-    BOOST_TEST_THROWS( lib3::f(), boost::exception );
+    BOOST_TEST_THROWS( lib4::f(), boost::exception );
+    BOOST_TEST_THROWS( lib5::f(), boost::exception );
 }
 
 void test_exception_ptr()
@@ -49,7 +53,6 @@ void test_exception_ptr()
         boost::exception_ptr p = boost::current_exception();
 
         BOOST_TEST_THROWS( boost::rethrow_exception( p ), lib2::exception );
-        BOOST_TEST_THROWS( boost::rethrow_exception( p ), boost::exception );
     }
 
     try
@@ -61,6 +64,29 @@ void test_exception_ptr()
         boost::exception_ptr p = boost::current_exception();
 
         BOOST_TEST_THROWS( boost::rethrow_exception( p ), lib3::exception );
+    }
+
+    try
+    {
+        lib4::f();
+    }
+    catch( ... )
+    {
+        boost::exception_ptr p = boost::current_exception();
+
+        BOOST_TEST_THROWS( boost::rethrow_exception( p ), lib4::exception );
+        BOOST_TEST_THROWS( boost::rethrow_exception( p ), boost::exception );
+    }
+
+    try
+    {
+        lib5::f();
+    }
+    catch( ... )
+    {
+        boost::exception_ptr p = boost::current_exception();
+
+        BOOST_TEST_THROWS( boost::rethrow_exception( p ), lib5::exception );
         BOOST_TEST_THROWS( boost::rethrow_exception( p ), boost::exception );
     }
 }
@@ -69,7 +95,7 @@ void test_throw_line()
 {
     try
     {
-        lib3::f();
+        lib5::f();
     }
     catch( boost::exception const & x )
     {
