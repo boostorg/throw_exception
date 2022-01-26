@@ -69,9 +69,9 @@ template<class E, class B> struct wrapexcept_add_base<E, B, 2>
 struct wrapexcept_location
 {
     wrapexcept_location() {}
-    explicit wrapexcept_location( boost::source_location const& loc ): loc_( loc ) {}
+    explicit wrapexcept_location( boost::source_location const& loc ): location_( loc ) {}
 
-    boost::source_location const loc_;
+    boost::source_location location_;
 };
 
 } // namespace detail
@@ -265,7 +265,7 @@ template<class E> boost::source_location get_throw_location( E const& e )
 #else
 
     detail::wrapexcept_location const* p = dynamic_cast< detail::wrapexcept_location const* >( &e );
-    return p? p->loc_: boost::source_location();
+    return p? p->location_: boost::source_location();
 
 #endif
 }
