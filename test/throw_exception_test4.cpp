@@ -50,6 +50,10 @@ int main()
             BOOST_TEST_CSTR_EQ( *function, BOOST_CURRENT_FUNCTION );
         }
     }
+    catch( ... )
+    {
+        BOOST_ERROR( "BOOST_THROW_EXCEPTION( my_exception() ) didn't throw boost::exception" );
+    }
 
     try
     {
@@ -68,7 +72,7 @@ int main()
             int const * line = boost::get_error_info<boost::throw_line>( x );
 
             BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 56 );
+            BOOST_TEST_EQ( *line, 60 );
         }
 
         {
@@ -77,6 +81,10 @@ int main()
             BOOST_TEST( function != 0 );
             BOOST_TEST_CSTR_EQ( *function, BOOST_CURRENT_FUNCTION );
         }
+    }
+    catch( ... )
+    {
+        BOOST_ERROR( "BOOST_THROW_EXCEPTION( my_exception2() ) didn't throw boost::exception" );
     }
 
     try
@@ -96,7 +104,7 @@ int main()
             int const * line = boost::get_error_info<boost::throw_line>( x );
 
             BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 84 );
+            BOOST_TEST_EQ( *line, 92 );
         }
 
         {
@@ -105,6 +113,10 @@ int main()
             BOOST_TEST( function != 0 );
             BOOST_TEST_CSTR_EQ( *function, BOOST_CURRENT_FUNCTION );
         }
+    }
+    catch( ... )
+    {
+        BOOST_ERROR( "BOOST_THROW_EXCEPTION( my_exception3() ) didn't throw boost::exception" );
     }
 
     return boost::report_errors();
