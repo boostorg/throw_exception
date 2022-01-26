@@ -41,9 +41,9 @@ BOOST_NORETURN void throw_exception( std::exception const & e, boost::source_loc
 
 #endif
 
-// has_source_location
+// has_throw_location
 
-struct has_source_location
+struct has_throw_location
 {
     virtual boost::source_location location() const BOOST_NOEXCEPT = 0;
 };
@@ -154,7 +154,7 @@ public:
 
 template<class E> struct BOOST_SYMBOL_VISIBLE wrapexcept<E, 11>:
     public E,
-    public has_source_location
+    public has_throw_location
 {
 private:
 
