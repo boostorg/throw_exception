@@ -44,7 +44,6 @@ int main()
         boost::exception_ptr p = boost::current_exception();
 
         BOOST_TEST_THROWS( boost::rethrow_exception( p ), my_exception );
-        BOOST_TEST_THROWS( boost::rethrow_exception( p ), boost::exception );
     }
 
     try
@@ -80,7 +79,6 @@ int main()
         boost::exception_ptr p = boost::current_exception();
 
         BOOST_TEST_THROWS( boost::rethrow_exception( p ), my_exception );
-        BOOST_TEST_THROWS( boost::rethrow_exception( p ), boost::exception );
     }
 
     try
