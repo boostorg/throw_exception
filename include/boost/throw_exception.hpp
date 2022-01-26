@@ -41,17 +41,10 @@ BOOST_NORETURN void throw_exception( std::exception const & e, boost::source_loc
 
 #endif
 
-// has_throw_location
-
-struct has_throw_location
-{
-    virtual boost::source_location location() const BOOST_NOEXCEPT = 0;
-};
-
-// wrapexcept<E>
-
 namespace detail
 {
+
+// wrapexcept_add_base
 
 typedef char (&wrapexcept_s1)[ 1 ];
 typedef char (&wrapexcept_s2)[ 2 ];
@@ -71,7 +64,19 @@ template<class E, class B> struct wrapexcept_add_base<E, B, 2>
     typedef B type;
 };
 
+// wrapexcept_location
+
+struct wrapexcept_location
+{
+    wrapexcept_location() {}
+    explicit wrapexcept_location( boost::source_location const& loc ): loc_( loc ) {}
+
+    boost::source_location const loc_;
+};
+
 } // namespace detail
+
+// wrapexcept<E>
 
 #if !defined(BOOST_NO_CXX11_HDR_EXCEPTION)
 
@@ -88,7 +93,8 @@ template<class E, int cxxstd = 98> struct BOOST_SYMBOL_VISIBLE wrapexcept;
 template<class E> struct BOOST_SYMBOL_VISIBLE wrapexcept<E, 98>:
     public detail::wrapexcept_add_base<E, boost::exception_detail::clone_base>::type,
     public E,
-    public detail::wrapexcept_add_base<E, boost::exception>::type
+    public detail::wrapexcept_add_base<E, boost::exception>::type,
+    public detail::wrapexcept_location
 {
 private:
 
@@ -116,7 +122,7 @@ public:
         copy_from( &e );
     }
 
-    explicit wrapexcept( E const & e, boost::source_location const & loc ): E( e )
+    explicit wrapexcept( E const & e, boost::source_location const & loc ): E( e ), detail::wrapexcept_location( loc )
     {
         copy_from( &e );
 
@@ -154,12 +160,8 @@ public:
 
 template<class E> struct BOOST_SYMBOL_VISIBLE wrapexcept<E, 11>:
     public E,
-    public has_throw_location
+    public detail::wrapexcept_location
 {
-private:
-
-    boost::source_location loc_;
-
 private:
 
     void copy_from( void const* )
@@ -187,7 +189,7 @@ public:
         copy_from( &e );
     }
 
-    explicit wrapexcept( E const & e, boost::source_location const & loc ): E( e ), loc_( loc )
+    explicit wrapexcept( E const & e, boost::source_location const & loc ): E( e ), detail::wrapexcept_location( loc )
     {
         copy_from( &e );
 
@@ -256,6 +258,22 @@ template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::sourc
 #endif // defined( BOOST_EXCEPTION_DISABLE )
 
 #endif // !defined( BOOST_NO_EXCEPTIONS )
+
+// get_throw_location
+
+template<class E> boost::source_location get_throw_location( E const& e )
+{
+#if defined(BOOST_NO_RTTI)
+
+    return boost::source_location();
+
+#else
+
+    detail::wrapexcept_location const* p = dynamic_cast< detail::wrapexcept_location const* >( &e );
+    return p? p->loc_: boost::source_location();
+
+#endif
+}
 
 } // namespace boost
 
