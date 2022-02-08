@@ -196,7 +196,7 @@ local windows_pipeline(name, image, environment, arch = "amd64") =
     linux_pipeline(
         "Linux 16.04 Clang 3.5",
         "cppalliance/droneubuntu1604:1",
-        { TOOLSET: 'clang', COMPILER: 'clang++-3.5', CXXSTD: '03,11,14' },
+        { TOOLSET: 'clang', COMPILER: 'clang++-3.5', CXXSTD: '03,11' },
         "clang-3.5",
     ),
 
