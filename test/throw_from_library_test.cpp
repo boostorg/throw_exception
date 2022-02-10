@@ -93,7 +93,7 @@ void test_throw_line()
     {
         boost::source_location loc = boost::get_throw_location( x );
 
-        BOOST_TEST_NE( loc.line(), 0 );
+        BOOST_TEST_NE( loc.line(), 0u );
     }
     catch( ... )
     {

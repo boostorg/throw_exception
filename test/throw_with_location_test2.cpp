@@ -31,7 +31,7 @@ int main()
         // So we can't be more specific in testing it.
 
         BOOST_TEST_CSTR_NE( loc.file_name(), "" );
-        BOOST_TEST_NE( loc.line(), 0 );
+        BOOST_TEST_NE( loc.line(), 0u );
     }
     catch( ... )
     {

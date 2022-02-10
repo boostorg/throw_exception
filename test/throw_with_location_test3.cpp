@@ -25,8 +25,8 @@ int main()
 
         BOOST_TEST_CSTR_EQ( loc.file_name(), "" );
         BOOST_TEST_CSTR_EQ( loc.function_name(), "" );
-        BOOST_TEST_EQ( loc.line(), 0 );
-        BOOST_TEST_EQ( loc.column(), 0 );
+        BOOST_TEST_EQ( loc.line(), 0u );
+        BOOST_TEST_EQ( loc.column(), 0u );
     }
 
     return boost::report_errors();
