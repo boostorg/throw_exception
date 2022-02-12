@@ -41,6 +41,16 @@ template<class E> BOOST_NORETURN void throw_exception( E const & e,
 
 #define BOOST_THROW_EXCEPTION(x) \
   ::boost::throw_exception(x, BOOST_CURRENT_LOCATION)
+
+namespace boost
+{
+
+template<class E> BOOST_NORETURN void throw_with_location( E && e,
+  boost::source_location const & loc = BOOST_CURRENT_LOCATION );
+
+template<class E> boost::source_location get_throw_location( E const & e );
+
+} // namespace boost
 ```
 
 ## throw_exception
@@ -96,3 +106,31 @@ Effects: ::
     it, and containing the necessary support for `boost::exception_ptr`. The
     `boost::exception` base class is initialized to contain the source
     location `loc`.
+
+## throw_with_location
+
+```
+template<class E> BOOST_NORETURN void throw_with_location( E && e,
+  boost::source_location const & loc = BOOST_CURRENT_LOCATION );
+```
+
+Requires: :: `std::decay<E>::type` must have `std::exception` as a public
+  and unambiguous base class.
+
+Effects: ::
+  * When exceptions aren't available, `boost::throw_exception( e, loc );`
+  * Otherwise, the function throws an object of a type derived from `E`,
+    such that, if this object `x` is caught as `std::exception` or `E`,
+    `boost::get_throw_location( x )` would return `loc`.
+
+## get_throw_location
+
+```
+template<class E> boost::source_location get_throw_location( E const & e );
+```
+
+Requires: :: `E` must be polymorphic.
+Effects: :: If `e` is a subobject of the object thrown by
+  `boost::throw_with_location( x, loc )`, returns `loc`. Otherwise, returns
+  a default constructed source location.
+
