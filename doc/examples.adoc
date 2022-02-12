@@ -194,9 +194,10 @@ take a source location argument that defaults to `BOOST_CURRENT_LOCATION`.
 This allows the source location attached to the exception to point at
 the location of the call to `f2`, rather than inside of `f2`.
 
-Since `f2` is typically called many times, this is usually what we want,
-because it enables us to identify the throwing call, rather than merely
-to know that it was `f2` that threw.
+Since functions such as `f2` are typically called from more than one place
+in the program, this is usually what we want, because it enables us to
+identify the throwing call, rather than merely to know that it was `f2`
+that threw.
 
 ```
 #include <boost/throw_exception.hpp>
