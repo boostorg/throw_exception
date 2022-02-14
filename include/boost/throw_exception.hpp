@@ -251,6 +251,7 @@ template<class E> boost::source_location get_throw_location( E const & e )
 {
 #if defined(BOOST_NO_RTTI)
 
+    (void)e;
     return boost::source_location();
 
 #else

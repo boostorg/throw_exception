@@ -51,3 +51,5 @@ run throw_with_location_test2.cpp ;
 run throw_with_location_test3.cpp ;
 
 run throw_with_location_nx_test.cpp : : : <exception-handling>off ;
+
+run throw_with_location_test3.cpp : : : <rtti>off : throw_with_location_test3_nr ;
