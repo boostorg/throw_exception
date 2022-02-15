@@ -119,11 +119,8 @@ a source location is not supplied, the location of the call to
 
 ```
 #include <boost/throw_exception.hpp>
-#include <boost/core/demangle.hpp>
+#include <boost/core/verbose_terminate_handler.hpp>
 #include <stdexcept>
-#include <cstdio>
-
-void my_terminate_handler();
 
 int f1( int x )
 {
@@ -138,42 +135,9 @@ int f1( int x )
 
 int main()
 {
-    std::set_terminate( my_terminate_handler );
+    std::set_terminate( boost::core::verbose_terminate_handler );
 
     return f1( -4 );
-}
-
-void my_terminate_handler()
-{
-    std::set_terminate( 0 );
-
-    try
-    {
-        throw;
-    }
-    catch( std::exception const& x )
-    {
-        boost::source_location loc = boost::get_throw_location( x );
-        std::string type = boost::core::demangle( typeid( x ).name() );
-
-        fprintf( stderr,
-            "std::terminate called after throwing an exception:\n"
-            "      type: %s\n"
-            "    what(): %s\n"
-            "  location: %s:%u:%u in function '%s'\n",
-
-            type.c_str(),
-            x.what(),
-            loc.file_name(), (unsigned)loc.line(),
-            (unsigned)loc.column(), loc.function_name()
-        );
-    }
-    catch( ... )
-    {
-        fputs( "std::terminate called after throwing an unknown exception", stderr );
-    }
-
-    std::abort();
 }
 ```
 
@@ -181,9 +145,10 @@ Sample output:
 
 ```none
 std::terminate called after throwing an exception:
+
       type: boost::detail::with_throw_location<std::invalid_argument>
     what(): f1: x cannot be negative
-  location: <source>:12:9 in function 'f1'
+  location: <source>:9:9 in function 'f1'
 ```
 
 ## Using boost::throw_with_location with an explicit source location
@@ -201,11 +166,8 @@ that threw.
 
 ```
 #include <boost/throw_exception.hpp>
-#include <boost/core/demangle.hpp>
+#include <boost/core/verbose_terminate_handler.hpp>
 #include <stdexcept>
-#include <cstdio>
-
-void my_terminate_handler();
 
 BOOST_NORETURN BOOST_NOINLINE
 void throw_invalid_argument( char const * msg,
@@ -238,43 +200,9 @@ int f2( int x,
 
 int main()
 {
-    std::set_terminate( my_terminate_handler );
+    std::set_terminate( boost::core::verbose_terminate_handler );
 
     return f1( 3 ) + f2( -11 );
-}
-
-void my_terminate_handler()
-{
-    std::set_terminate( 0 );
-
-    try
-    {
-        throw;
-    }
-    catch( std::exception const& x )
-    {
-        boost::source_location loc = boost::get_throw_location( x );
-        std::string type = boost::core::demangle( typeid( x ).name() );
-
-        fprintf( stderr,
-            "std::terminate called after throwing an exception:\n"
-            "      type: %s\n"
-            "    what(): %s\n"
-            "  location: %s:%u:%u in function '%s'\n",
-
-            type.c_str(),
-            x.what(),
-            loc.file_name(), (unsigned)loc.line(),
-            (unsigned)loc.column(), loc.function_name()
-        );
-    }
-    catch( ... )
-    {
-        fputs( "std::terminate called after throwing an unknown exception",
-            stderr );
-    }
-
-    std::abort();
 }
 ```
 
@@ -282,7 +210,8 @@ Sample output:
 
 ```none
 std::terminate called after throwing an exception:
+
       type: boost::detail::with_throw_location<std::invalid_argument>
     what(): f2: x cannot be negative
-  location: <source>:41:22 in function 'main'
+  location: <source>:38:22 in function 'main'
 ```
