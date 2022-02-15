@@ -14,7 +14,8 @@ http://www.boost.org/LICENSE_1_0.txt
 
 Demonstrates the use of `BOOST_THROW_EXCEPTION`.
 
-```
+[source,c++,linenums,highlight=8]
+----
 #include <boost/throw_exception.hpp>
 #include <boost/exception/diagnostic_information.hpp>
 #include <stdexcept>
@@ -36,7 +37,7 @@ int main()
         std::cerr << boost::diagnostic_information( x ) << std::endl;
     }
 }
-```
+----
 
 Sample output:
 
@@ -54,7 +55,8 @@ unnecessary code duplication. The source location is passed
 explicitly to the helper function so that it can still record the
 logical throw point, instead of always pointing into the helper.
 
-```
+[source,c++,linenums,highlight=31]
+----
 #include <boost/throw_exception.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/exception/diagnostic_information.hpp>
@@ -101,7 +103,7 @@ int main()
         std::cerr << boost::diagnostic_information( x ) << std::endl;
     }
 }
-```
+----
 
 Sample output:
 
@@ -117,7 +119,8 @@ This example demonstrates a trivial use of `boost::throw_with_location`. Since
 a source location is not supplied, the location of the call to
 `boost::throw_with_location` is implicitly captured.
 
-```
+[source,c++,linenums,highlight=9]
+----
 #include <boost/throw_exception.hpp>
 #include <boost/core/verbose_terminate_handler.hpp>
 #include <stdexcept>
@@ -139,7 +142,7 @@ int main()
 
     return f1( -4 );
 }
-```
+----
 
 Sample output:
 
@@ -164,7 +167,8 @@ in the program, this is usually what we want, because it enables us to
 identify the throwing call, rather than merely to know that it was `f2`
 that threw.
 
-```
+[source,c++,linenums,highlight=38]
+----
 #include <boost/throw_exception.hpp>
 #include <boost/core/verbose_terminate_handler.hpp>
 #include <stdexcept>
@@ -204,7 +208,7 @@ int main()
 
     return f1( 3 ) + f2( -11 );
 }
-```
+----
 
 Sample output:
 
