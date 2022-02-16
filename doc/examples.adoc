@@ -59,7 +59,7 @@ logical throw point, instead of always pointing into the helper.
 ----
 #include <boost/throw_exception.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/exception/diagnostic_information.hpp>
+#include <boost/core/verbose_terminate_handler.hpp>
 #include <stdexcept>
 #include <cstddef>
 #include <iostream>
@@ -93,24 +93,21 @@ void f2( std::size_t i, std::size_t n )
 
 int main()
 {
-    try
-    {
-        f1( 0, 3 );
-        f2( 4, 3 );
-    }
-    catch( std::exception const & x )
-    {
-        std::cerr << boost::diagnostic_information( x ) << std::endl;
-    }
+    std::set_terminate( boost::core::verbose_terminate_handler );
+
+    f1( 0, 3 );
+    f2( 4, 3 );
 }
 ----
 
 Sample output:
 
 ```none
-example.cpp(31): Throw in function void f2(std::size_t, std::size_t)
-Dynamic exception type: boost::wrapexcept<std::out_of_range>
-std::exception::what: Index out of range: 4 >= 3
+std::terminate called after throwing an exception:
+
+      type: boost::wrapexcept<std::out_of_range>
+    what(): Index out of range: 4 >= 3
+  location: <source>:31:34 in function 'f2'
 ```
 
 ## Using boost::throw_with_location

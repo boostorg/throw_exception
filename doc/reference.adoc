@@ -130,7 +130,8 @@ template<class E> boost::source_location get_throw_location( E const & e );
 ```
 
 Requires: :: `E` must be polymorphic.
-Effects: :: If `e` is a subobject of the object thrown by
-  `boost::throw_with_location( x, loc )`, returns `loc`. Otherwise, returns
-  a default constructed source location.
+Effects: ::
+* If `e` is a subobject of the object thrown by `boost::throw_with_location( x, loc )`, returns `loc`.
+* If `dynamic_cast<boost::exception const*>( e )` returns a nonzero value, returns the source location stored in that `boost::exception` subobject, if any.
+* Otherwise, returns a default constructed source location.
 

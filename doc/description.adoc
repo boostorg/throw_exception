@@ -44,3 +44,7 @@ enable `boost::exception_ptr` support.
 The source location of the exception thrown by `boost::throw_with_location`
 can be retrieved, after `catch(std::exception const & x)`, by using
 `boost::get_throw_location(x)`.
+
+`boost::get_throw_location` also works for exceptions thrown by the two argument
+overload of `boost::throw_exception`, or by `BOOST_THROW_EXCEPTION`; in this case
+it returns the source location stored in the `boost::exception` base class.
