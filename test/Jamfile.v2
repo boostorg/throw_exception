@@ -49,6 +49,7 @@ run make_exception_ptr_nx_test2.cpp : : : <exception-handling>off ;
 run throw_with_location_test.cpp ;
 run throw_with_location_test2.cpp ;
 run throw_with_location_test3.cpp ;
+run throw_with_location_test4.cpp ;
 
 run throw_with_location_nx_test.cpp : : : <exception-handling>off ;
 

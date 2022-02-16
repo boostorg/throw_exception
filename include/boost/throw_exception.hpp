@@ -106,6 +106,7 @@ public:
         set_info( *this, throw_file( loc.file_name() ) );
         set_info( *this, throw_line( loc.line() ) );
         set_info( *this, throw_function( loc.function_name() ) );
+        set_info( *this, throw_column( loc.column() ) );
     }
 
     virtual boost::exception_detail::clone_base const * clone() const BOOST_OVERRIDE
@@ -256,8 +257,18 @@ template<class E> boost::source_location get_throw_location( E const & e )
 
 #else
 
-    detail::throw_location const* p = dynamic_cast< detail::throw_location const* >( &e );
-    return p? p->location_: boost::source_location();
+    if( detail::throw_location const* pl = dynamic_cast< detail::throw_location const* >( &e ) )
+    {
+        return pl->location_;
+    }
+    else if( boost::exception const* px = dynamic_cast< boost::exception const* >( &e ) )
+    {
+        return exception_detail::get_exception_throw_location( *px );
+    }
+    else
+    {
+        return boost::source_location();
+    }
 
 #endif
 }
