@@ -116,7 +116,12 @@ public:
 
         boost::exception_detail::copy_boost_exception( p, this );
 
+#if defined( BOOST_NO_CXX11_NULLPTR )
+        del.p_ = 0;
+#else
         del.p_ = nullptr;
+#endif
+
         return p;
     }
 
