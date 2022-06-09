@@ -117,7 +117,6 @@ public:
         boost::exception_detail::copy_boost_exception( p, this );
 
         del.p_ = BOOST_NULLPTR;
-
         return p;
     }
 
