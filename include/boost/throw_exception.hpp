@@ -221,27 +221,44 @@ public:
 
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
 
-template<class E> BOOST_NORETURN void throw_with_location( E && e, boost::source_location const & loc = BOOST_CURRENT_LOCATION )
+template<class E> BOOST_NORETURN void throw_with_location( E && e, boost::source_location const & loc )
 {
     throw_exception_assert_compatibility( e );
     throw detail::with_throw_location<typename std::decay<E>::type>( std::forward<E>( e ), loc );
 }
 
+template<class E> BOOST_NORETURN void throw_with_location( E && e )
+{
+    throw_exception_assert_compatibility( e );
+    throw detail::with_throw_location<typename std::decay<E>::type>( std::forward<E>( e ), BOOST_CURRENT_LOCATION );
+}
+
 #else
 
-template<class E> BOOST_NORETURN void throw_with_location( E const & e, boost::source_location const & loc = BOOST_CURRENT_LOCATION )
+template<class E> BOOST_NORETURN void throw_with_location( E const & e, boost::source_location const & loc )
 {
     throw_exception_assert_compatibility( e );
     throw detail::with_throw_location<E>( e, loc );
+}
+
+template<class E> BOOST_NORETURN void throw_with_location( E const & e )
+{
+    throw_exception_assert_compatibility( e );
+    throw detail::with_throw_location<E>( e, BOOST_CURRENT_LOCATION );
 }
 
 #endif
 
 #else
 
-template<class E> BOOST_NORETURN void throw_with_location( E const & e, boost::source_location const & loc = BOOST_CURRENT_LOCATION )
+template<class E> BOOST_NORETURN void throw_with_location( E const & e, boost::source_location const & loc )
 {
     boost::throw_exception( e, loc );
+}
+
+template<class E> BOOST_NORETURN void throw_with_location( E const & e )
+{
+    boost::throw_exception( e, BOOST_CURRENT_LOCATION );
 }
 
 #endif
