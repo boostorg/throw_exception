@@ -161,22 +161,23 @@ local windows_pipeline(name, image, environment, arch = "amd64") =
     ),
 
     linux_pipeline(
-        "Linux 20.04 GCC 9* 32",
+        "Linux 20.04 GCC 9* 32/64",
         "cppalliance/droneubuntu2004:1",
-        { TOOLSET: 'gcc', COMPILER: 'g++', CXXSTD: '03,11,14,17,2a', ADDRMD: '32' },
-    ),
-
-    linux_pipeline(
-        "Linux 20.04 GCC 9* 64",
-        "cppalliance/droneubuntu2004:1",
-        { TOOLSET: 'gcc', COMPILER: 'g++', CXXSTD: '03,11,14,17,2a', ADDRMD: '64' },
-    ),
-
-    linux_pipeline(
-        "Linux 20.04 GCC 9 ARM64 32/64",
-        "cppalliance/droneubuntu2004:multiarch",
         { TOOLSET: 'gcc', COMPILER: 'g++', CXXSTD: '03,11,14,17,2a', ADDRMD: '32,64' },
+    ),
+
+    linux_pipeline(
+        "Linux 20.04 GCC 9* ARM64",
+        "cppalliance/droneubuntu2004:multiarch",
+        { TOOLSET: 'gcc', COMPILER: 'g++', CXXSTD: '03,11,14,17,2a' },
         arch="arm64",
+    ),
+
+    linux_pipeline(
+        "Linux 20.04 GCC 9* S390x",
+        "cppalliance/droneubuntu2004:multiarch",
+        { TOOLSET: 'gcc', COMPILER: 'g++', CXXSTD: '03,11,14,17,2a' },
+        arch="s390x",
     ),
 
     linux_pipeline(
@@ -191,6 +192,19 @@ local windows_pipeline(name, image, environment, arch = "amd64") =
         "cppalliance/droneubuntu2004:1",
         { TOOLSET: 'gcc', COMPILER: 'g++-10', CXXSTD: '03,11,14,17,20', ADDRMD: '64' } + asan,
         "g++-10-multilib",
+    ),
+
+    linux_pipeline(
+        "Linux 22.04 GCC 11* 32/64",
+        "cppalliance/droneubuntu2204:1",
+        { TOOLSET: 'gcc', COMPILER: 'g++', CXXSTD: '03,11,14,17,2a', ADDRMD: '32,64' },
+    ),
+
+    linux_pipeline(
+        "Linux 22.04 GCC 12",
+        "cppalliance/droneubuntu2204:1",
+        { TOOLSET: 'gcc', COMPILER: 'g++-12', CXXSTD: '03,11,14,17,20,2b' },
+        "g++-12",
     ),
 
     linux_pipeline(
@@ -222,27 +236,32 @@ local windows_pipeline(name, image, environment, arch = "amd64") =
     ),
 
     linux_pipeline(
-        "Linux 20.04 Clang 13",
-        "cppalliance/droneubuntu2004:1",
+        "Linux 22.04 Clang 13",
+        "cppalliance/droneubuntu2204:1",
         { TOOLSET: 'clang', COMPILER: 'clang++-13', CXXSTD: '03,11,14,17,20' },
         "clang-13",
-        ["deb http://apt.llvm.org/focal/ llvm-toolchain-focal-13 main"],
     ),
 
     linux_pipeline(
-        "Linux 20.04 Clang 14 UBSAN",
-        "cppalliance/droneubuntu2004:1",
+        "Linux 22.04 Clang 14 UBSAN",
+        "cppalliance/droneubuntu2204:1",
         { TOOLSET: 'clang', COMPILER: 'clang++-14', CXXSTD: '03,11,14,17,20' } + ubsan,
         "clang-14",
-        ["deb http://apt.llvm.org/focal/ llvm-toolchain-focal-14 main"],
     ),
 
     linux_pipeline(
-        "Linux 20.04 Clang 14 ASAN",
-        "cppalliance/droneubuntu2004:1",
+        "Linux 22.04 Clang 14 ASAN",
+        "cppalliance/droneubuntu2204:1",
         { TOOLSET: 'clang', COMPILER: 'clang++-14', CXXSTD: '03,11,14,17,20' } + asan,
         "clang-14",
-        ["deb http://apt.llvm.org/focal/ llvm-toolchain-focal-14 main"],
+    ),
+
+    linux_pipeline(
+        "Linux 22.04 Clang 15",
+        "cppalliance/droneubuntu2204:1",
+        { TOOLSET: 'clang', COMPILER: 'clang++-15', CXXSTD: '03,11,14,17,20,2b' },
+        "clang-15",
+        ["deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"],
     ),
 
     macos_pipeline(
