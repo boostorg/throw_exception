@@ -8,12 +8,21 @@
 
 import testing ;
 
-project : requirements
-  <warnings>extra
-  <toolset>msvc:<warnings-as-errors>on
-  <toolset>clang:<warnings-as-errors>on
-  <toolset>gcc:<warnings-as-errors>on
-  <toolset>gcc:<cxxflags>-Wshadow ;
+local gcc-flags = -Wsign-promo -Wconversion -Wsign-conversion -Wshadow ;
+
+project
+    : requirements
+
+        <warnings>extra
+
+        <toolset>msvc:<warnings-as-errors>on
+        <toolset>clang:<warnings-as-errors>on
+        <toolset>gcc:<warnings-as-errors>on
+
+        <toolset>gcc:<cxxflags>$(gcc-flags)
+        <toolset>clang:<cxxflags>$(gcc-flags)
+    ;
+
 
 run throw_exception_test.cpp ;
 run throw_exception_no_exceptions_test.cpp ;
