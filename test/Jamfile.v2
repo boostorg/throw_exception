@@ -8,7 +8,7 @@
 
 import testing ;
 
-local gcc-flags = -Wsign-promo -Wconversion -Wsign-conversion -Wshadow ;
+local gcc-flags = -Wsign-promo -Wconversion -Wsign-conversion -Wshadow -Wundef ;
 
 project
     : requirements
@@ -22,7 +22,6 @@ project
         <toolset>gcc:<cxxflags>$(gcc-flags)
         <toolset>clang:<cxxflags>$(gcc-flags)
     ;
-
 
 run throw_exception_test.cpp ;
 run throw_exception_no_exceptions_test.cpp ;
