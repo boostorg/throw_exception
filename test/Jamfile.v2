@@ -12,6 +12,8 @@ local gcc-flags = -Wsign-promo -Wconversion -Wsign-conversion -Wshadow -Wundef ;
 
 project
     : requirements
+        <source>/boost/core//boost_core
+        <use>/boost/exception//boost_exception
 
         <warnings>extra
 
