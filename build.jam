@@ -5,17 +5,20 @@
 
 require-b2 5.2 ;
 
+constant boost_dependencies :
+    /boost/assert//boost_assert
+    /boost/config//boost_config ;
+
 project /boost/throw_exception
     : common-requirements
-        <library>/boost/assert//boost_assert
-        <library>/boost/config//boost_config
         <include>include
     ;
 
 explicit
-    [ alias boost_throw_exception ]
+    [ alias boost_throw_exception : : : : <library>$(boost_dependencies) ]
     [ alias all : boost_throw_exception test ]
     ;
 
 call-if : boost-library throw_exception
     ;
+
