@@ -19,6 +19,7 @@
 //  http://www.boost.org/libs/throw_exception
 
 #include <boost/exception/exception.hpp>
+
 #include <boost/assert/source_location.hpp>
 #include <boost/config.hpp>
 #include <boost/config/workaround.hpp>
@@ -38,8 +39,10 @@ namespace boost
 
 #if defined( BOOST_NO_EXCEPTIONS )
 
+BOOST_THROW_EXCEPTION_BEGIN_MODULE_EXPORT
 BOOST_NORETURN void throw_exception( std::exception const & e ); // user defined
 BOOST_NORETURN void throw_exception( std::exception const & e, boost::source_location const & loc ); // user defined
+BOOST_THROW_EXCEPTION_END_MODULE_EXPORT
 
 #endif
 
@@ -67,6 +70,9 @@ template<class E, class B> struct wrapexcept_add_base<E, B, 2>
 };
 
 } // namespace detail
+
+
+BOOST_THROW_EXCEPTION_BEGIN_MODULE_EXPORT
 
 template<class E> struct BOOST_SYMBOL_VISIBLE wrapexcept:
     public detail::wrapexcept_add_base<E, boost::exception_detail::clone_base>::type,
@@ -175,6 +181,8 @@ template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::sourc
 
 #endif // !defined( BOOST_NO_EXCEPTIONS )
 
+BOOST_THROW_EXCEPTION_END_MODULE_EXPORT
+
 } // namespace boost
 
 // BOOST_THROW_EXCEPTION
@@ -216,6 +224,8 @@ public:
 };
 
 } // namespace detail
+
+BOOST_THROW_EXCEPTION_BEGIN_MODULE_EXPORT
 
 #if !defined(BOOST_NO_EXCEPTIONS)
 
@@ -272,6 +282,8 @@ template<class E> boost::source_location get_throw_location( E const & e )
 
 #endif
 }
+
+BOOST_THROW_EXCEPTION_END_MODULE_EXPORT
 
 } // namespace boost
 

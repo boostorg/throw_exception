@@ -6,16 +6,28 @@
 #ifndef BOOST_EXCEPTION_274DA366004E11DCB1DDFE2E56D89593
 #define BOOST_EXCEPTION_274DA366004E11DCB1DDFE2E56D89593
 
+#ifndef BOOST_THROW_EXCEPTION_BEGIN_MODULE_EXPORT
+#define BOOST_THROW_EXCEPTION_BEGIN_MODULE_EXPORT
+#endif
+
+#ifndef BOOST_THROW_EXCEPTION_END_MODULE_EXPORT
+#define BOOST_THROW_EXCEPTION_END_MODULE_EXPORT
+#endif
+
 #include <boost/assert/source_location.hpp>
 #include <boost/config.hpp>
 #include <exception>
 
 #ifdef BOOST_EXCEPTION_MINI_BOOST
 #include  <memory>
+BOOST_THROW_EXCEPTION_BEGIN_MODULE_EXPORT
 namespace boost { namespace exception_detail { using std::shared_ptr; } }
+BOOST_THROW_EXCEPTION_END_MODULE_EXPORT
 #else
+BOOST_THROW_EXCEPTION_BEGIN_MODULE_EXPORT
 namespace boost { template <class T> class shared_ptr; }
 namespace boost { namespace exception_detail { using boost::shared_ptr; } }
+BOOST_THROW_EXCEPTION_END_MODULE_EXPORT
 #endif
 
 #if !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
@@ -31,6 +43,7 @@ namespace boost { namespace exception_detail { using boost::shared_ptr; } }
 #endif
 #endif
 
+BOOST_THROW_EXCEPTION_BEGIN_MODULE_EXPORT
 namespace
 boost
     {
@@ -565,5 +578,7 @@ boost
 #if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
 #pragma warning(pop)
 #endif
+
+BOOST_THROW_EXCEPTION_END_MODULE_EXPORT
 
 #endif // #ifndef BOOST_EXCEPTION_274DA366004E11DCB1DDFE2E56D89593
