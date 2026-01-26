@@ -16,6 +16,10 @@ target_link_libraries(boost_throw_exception
     Boost::config
 )
 
+if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.28.0" AND BUILD_MODULE)
+    add_subdirectory(module)
+endif()
+
 if(BUILD_TESTING)
 
   add_subdirectory(test)
