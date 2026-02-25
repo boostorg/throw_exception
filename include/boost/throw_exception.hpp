@@ -22,11 +22,11 @@
 #include <boost/assert/source_location.hpp>
 #include <boost/config.hpp>
 #include <boost/config/workaround.hpp>
-#include <exception>
-#include <utility>
-#include <cstddef>
+#include <boost/config/std/exception.hpp>
+#include <boost/config/std/utility.hpp>
+#include <boost/config/std/cstddef.hpp>
 #if !defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
-#include <type_traits>
+#include <boost/config/std/type_traits.hpp>
 #endif
 
 #if !defined( BOOST_EXCEPTION_DISABLE ) && defined( BOOST_BORLANDC ) && BOOST_WORKAROUND( BOOST_BORLANDC, BOOST_TESTED_AT(0x593) )

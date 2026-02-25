@@ -8,10 +8,10 @@
 
 #include <boost/assert/source_location.hpp>
 #include <boost/config.hpp>
-#include <exception>
+#include <boost/config/std/exception.hpp>
 
 #ifdef BOOST_EXCEPTION_MINI_BOOST
-#include  <memory>
+#include  <boost/config/std/memory.hpp>
 namespace boost { namespace exception_detail { using std::shared_ptr; } }
 #else
 namespace boost { template <class T> class shared_ptr; }

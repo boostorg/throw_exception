@@ -16,6 +16,10 @@ target_link_libraries(boost_throw_exception
     Boost::config
 )
 
+if (BOOST_USE_MODULES)
+  target_compile_definitions(boost_throw_exception INTERFACE BOOST_USE_MODULES)
+endif()
+
 if(BUILD_TESTING)
 
   add_subdirectory(test)

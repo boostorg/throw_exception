@@ -5,6 +5,17 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#ifdef BOOST_USE_MODULES
+
+#include <stdio.h>
+
+int main()
+{
+    printf("This test depends on Boost.Exception and can't be run with C++20 modules yet\n");
+}
+
+#else
+
 #include <boost/throw_exception.hpp>
 #include <boost/exception/get_error_info.hpp>
 #include <boost/detail/lightweight_test.hpp>
@@ -131,3 +142,5 @@ int main()
 
     return boost::report_errors();
 }
+
+#endif
