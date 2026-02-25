@@ -9,7 +9,7 @@
 #endif
 
 #include <boost/throw_exception.hpp>
-#include <cstdlib>
+#include <boost/config/std/cstdlib.hpp>
 
 class my_exception: public std::exception {};
 

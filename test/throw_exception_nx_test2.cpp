@@ -9,8 +9,8 @@
 #endif
 
 #include <boost/throw_exception.hpp>
-#include <cstdlib>
-#include <cstring>
+#include <boost/config/std/cstdlib.hpp>
+#include <boost/config/std/cstring.hpp>
 
 class my_exception: public std::exception {};
 

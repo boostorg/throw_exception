@@ -4,7 +4,7 @@
 
 #ifdef BOOST_USE_MODULES
 
-#include <stdio.h>
+import std.compat;
 
 int main()
 {

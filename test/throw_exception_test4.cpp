@@ -7,7 +7,7 @@
 
 #ifdef BOOST_USE_MODULES
 
-#include <stdio.h>
+import std.compat;
 
 int main()
 {
@@ -19,7 +19,7 @@ int main()
 #include <boost/throw_exception.hpp>
 #include <boost/exception/get_error_info.hpp>
 #include <boost/detail/lightweight_test.hpp>
-#include <cstring>
+#include <boost/config/std/cstring.hpp>
 
 class my_exception: public std::exception
 {

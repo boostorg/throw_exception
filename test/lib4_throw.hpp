@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/config.hpp>
-#include <exception>
+#include <boost/config/std/exception.hpp>
 
 #if defined(LIB4_DYN_LINK)
 # if defined(LIB4_SOURCE)
