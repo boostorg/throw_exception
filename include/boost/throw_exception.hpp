@@ -18,8 +18,7 @@
 //
 //  http://www.boost.org/libs/throw_exception
 
-
-#ifndef BOOST_USE_MODULES
+#include <boost/exception/exception.hpp>
 #include <boost/assert/source_location.hpp>
 #include <boost/config.hpp>
 #include <boost/config/workaround.hpp>
@@ -29,19 +28,9 @@
 #if !defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
 #include <type_traits>
 #endif
-#endif
-
-#include <boost/exception/exception.hpp>
 
 #if !defined( BOOST_EXCEPTION_DISABLE ) && defined( BOOST_BORLANDC ) && BOOST_WORKAROUND( BOOST_BORLANDC, BOOST_TESTED_AT(0x593) )
 # define BOOST_EXCEPTION_DISABLE
-#endif
-
-// BOOST_THROW_EXCEPTION_MODULE_EXPORT
-#ifdef BOOST_USE_MODULES
-#  define BOOST_THROW_EXCEPTION_MODULE_EXPORT export
-#else
-#  define BOOST_THROW_EXCEPTION_MODULE_EXPORT
 #endif
 
 namespace boost
@@ -79,7 +68,6 @@ template<class E, class B> struct wrapexcept_add_base<E, B, 2>
 
 } // namespace detail
 
-BOOST_THROW_EXCEPTION_MODULE_EXPORT
 template<class E> struct BOOST_SYMBOL_VISIBLE wrapexcept:
     public detail::wrapexcept_add_base<E, boost::exception_detail::clone_base>::type,
     public E,
@@ -171,14 +159,12 @@ template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::sourc
 
 #else // defined( BOOST_EXCEPTION_DISABLE )
 
-BOOST_THROW_EXCEPTION_MODULE_EXPORT
 template<class E> BOOST_NORETURN void throw_exception( E const & e )
 {
     throw_exception_assert_compatibility( e );
     throw wrapexcept<E>( e );
 }
 
-BOOST_THROW_EXCEPTION_MODULE_EXPORT
 template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::source_location const & loc )
 {
     throw_exception_assert_compatibility( e );
@@ -192,6 +178,8 @@ template<class E> BOOST_NORETURN void throw_exception( E const & e, boost::sourc
 } // namespace boost
 
 // BOOST_THROW_EXCEPTION
+
+#define BOOST_THROW_EXCEPTION(x) ::boost::throw_exception(x, BOOST_CURRENT_LOCATION)
 
 namespace boost
 {
@@ -233,7 +221,6 @@ public:
 
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
 
-BOOST_THROW_EXCEPTION_MODULE_EXPORT
 template<class E> BOOST_NORETURN void throw_with_location( E && e, boost::source_location const & loc = BOOST_CURRENT_LOCATION )
 {
     throw_exception_assert_compatibility( e );
@@ -261,7 +248,6 @@ template<class E> BOOST_NORETURN void throw_with_location( E const & e, boost::s
 
 // get_throw_location
 
-BOOST_THROW_EXCEPTION_MODULE_EXPORT
 template<class E> boost::source_location get_throw_location( E const & e )
 {
 #if defined(BOOST_NO_RTTI)
@@ -288,7 +274,5 @@ template<class E> boost::source_location get_throw_location( E const & e )
 }
 
 } // namespace boost
-
-#include <boost/throw_exception/macros.hpp>
 
 #endif // #ifndef BOOST_THROW_EXCEPTION_HPP_INCLUDED
