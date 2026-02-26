@@ -1,3 +1,8 @@
+// Make the header safe to include from libraries supporting modules
+#if defined(BOOST_IN_MODULE_PURVIEW) && !defined(BOOST_THROW_EXCEPTION_HPP_INCLUDED)
+#  error "Please #include <boost/throw_exception.hpp> in your module global fragment"
+#endif
+
 #ifndef BOOST_THROW_EXCEPTION_HPP_INCLUDED
 #define BOOST_THROW_EXCEPTION_HPP_INCLUDED
 
