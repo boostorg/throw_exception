@@ -27,7 +27,7 @@ int main()
 #include <boost/exception/get_error_info.hpp>
 #include <boost/exception/info.hpp>
 #include <boost/detail/lightweight_test.hpp>
-#include <string>
+#include <boost/config/std/string.hpp>
 
 typedef boost::error_info<struct tag_error_code, int> error_code;
 typedef boost::error_info<struct tag_error_string, std::string> error_string;
