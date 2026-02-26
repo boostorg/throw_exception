@@ -108,10 +108,11 @@ public:
     {
         copy_from( &e );
 
-        set_info( *this, throw_file( loc.file_name() ) );
-        set_info( *this, throw_line( static_cast<int>( loc.line() ) ) );
-        set_info( *this, throw_function( loc.function_name() ) );
-        set_info( *this, throw_column( static_cast<int>( loc.column() ) ) );
+        // RP TODO: gcc fails to find these by ADL when using modules for some reason
+        exception_detail::set_info( *this, throw_file( loc.file_name() ) );
+        exception_detail::set_info( *this, throw_line( static_cast<int>( loc.line() ) ) );
+        exception_detail::set_info( *this, throw_function( loc.function_name() ) );
+        exception_detail::set_info( *this, throw_column( static_cast<int>( loc.column() ) ) );
     }
 
     virtual boost::exception_detail::clone_base const * clone() const BOOST_OVERRIDE
