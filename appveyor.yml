@@ -62,6 +62,7 @@ install:
   - git submodule update --init tools/boostdep
   - xcopy /s /e /q %APPVEYOR_BUILD_FOLDER% libs\throw_exception\
   - python tools/boostdep/depinst/depinst.py throw_exception
+  - python libs/throw_exception/tools/setup_boost_with_modules.py # Temporary
   - cmd /c bootstrap
   - b2 -d0 headers
 
