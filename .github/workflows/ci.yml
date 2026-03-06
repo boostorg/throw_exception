@@ -713,6 +713,7 @@ jobs:
             -DBUILD_TESTING=ON \
             -DBOOST_INCLUDE_LIBRARIES=$LIBRARY \
             -DBOOST_USE_MODULES=ON \
+            -DCMAKE_CXX_MODULE_STD=ON \
             -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=d0edc3af-4c50-42ea-a356-e2862fe7a444 \
             ${{ matrix.cmake-args }} \
             ..
@@ -797,6 +798,7 @@ jobs:
             -DCMAKE_CXX_STANDARD=23 \
             -DCMAKE_INSTALL_PREFIX=~/.local \
             -DBOOST_USE_MODULES=ON \
+            -DCMAKE_CXX_MODULE_STD=ON \
             -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=d0edc3af-4c50-42ea-a356-e2862fe7a444 \
             ${{ matrix.cmake-args }} \
             ..
@@ -914,7 +916,7 @@ jobs:
           call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
           cd ../boost-root/libs/%LIBRARY%/test/cmake_subdir_test
           mkdir __build__ && cd __build__
-          cmake -DBOOST_USE_MODULES=1 -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -G Ninja ..
+          cmake -DBOOST_USE_MODULES=1 -DCMAKE_CXX_MODULE_STD=ON -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -G Ninja ..
           cmake --build .
           ctest --output-on-failure --no-tests=error
 
@@ -968,7 +970,7 @@ jobs:
         run: |
           call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
           cd ../boost-root/libs/%LIBRARY%/test/cmake_install_test && mkdir __build__ && cd __build__
-          cmake -DCMAKE_INSTALL_PREFIX=C:/cmake-prefix -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -G Ninja ..
+          cmake -DCMAKE_INSTALL_PREFIX=C:/cmake-prefix -DCMAKE_CXX_MODULE_STD=ON -DCMAKE_CXX_STANDARD=23 -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=0e5b6991-d74f-4b3d-a41c-cf096e0b2508 -G Ninja ..
           cmake --build .
           ctest --output-on-failure --no-tests=error
 
