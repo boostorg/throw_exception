@@ -73,7 +73,7 @@ int main()
             int const * line = boost::get_error_info<boost::throw_line>( x );
 
             BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 50 );
+            BOOST_TEST_EQ( *line, 61 );
         }
 
         {
@@ -101,7 +101,7 @@ int main()
             int const * line = boost::get_error_info<boost::throw_line>( x );
 
             BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 78 );
+            BOOST_TEST_EQ( *line, 89 );
         }
 
         {
@@ -129,7 +129,7 @@ int main()
             int const * line = boost::get_error_info<boost::throw_line>( x );
 
             BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 106 );
+            BOOST_TEST_EQ( *line, 117 );
         }
 
         {
