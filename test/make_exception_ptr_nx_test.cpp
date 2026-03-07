@@ -2,6 +2,17 @@
 // Distributed under the Boost Software License, Version 1.0.
 // http://www.boost.org/LICENSE_1_0.txt
 
+#ifdef BOOST_USE_MODULES
+
+import std.compat;
+
+int main()
+{
+    printf("This test depends on Boost.Exception and can't be run with C++20 modules yet\n");
+}
+
+#else
+
 #if defined(_MSC_VER)
 # pragma warning(disable: 4702) // unreachable code
 # pragma warning(disable: 4577) // noexcept used without /EHsc
@@ -27,3 +38,5 @@ void throw_exception( std::exception const & )
 }
 
 } // namespace boost
+
+#endif

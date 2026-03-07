@@ -1,3 +1,8 @@
+// Make the header safe to include from libraries supporting modules
+#if defined(BOOST_IN_MODULE_PURVIEW) && !defined(BOOST_THROW_EXCEPTION_HPP_INCLUDED)
+#  error "Please #include <boost/throw_exception.hpp> in your module global fragment"
+#endif
+
 #ifndef BOOST_THROW_EXCEPTION_HPP_INCLUDED
 #define BOOST_THROW_EXCEPTION_HPP_INCLUDED
 
@@ -22,11 +27,11 @@
 #include <boost/assert/source_location.hpp>
 #include <boost/config.hpp>
 #include <boost/config/workaround.hpp>
-#include <exception>
-#include <utility>
-#include <cstddef>
+#include <boost/config/std/exception.hpp>
+#include <boost/config/std/utility.hpp>
+#include <boost/config/std/cstddef.hpp>
 #if !defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
-#include <type_traits>
+#include <boost/config/std/type_traits.hpp>
 #endif
 
 #if !defined( BOOST_EXCEPTION_DISABLE ) && defined( BOOST_BORLANDC ) && BOOST_WORKAROUND( BOOST_BORLANDC, BOOST_TESTED_AT(0x593) )
@@ -103,10 +108,11 @@ public:
     {
         copy_from( &e );
 
-        set_info( *this, throw_file( loc.file_name() ) );
-        set_info( *this, throw_line( static_cast<int>( loc.line() ) ) );
-        set_info( *this, throw_function( loc.function_name() ) );
-        set_info( *this, throw_column( static_cast<int>( loc.column() ) ) );
+        // RP TODO: gcc fails to find these by ADL when using modules for some reason
+        exception_detail::set_info( *this, throw_file( loc.file_name() ) );
+        exception_detail::set_info( *this, throw_line( static_cast<int>( loc.line() ) ) );
+        exception_detail::set_info( *this, throw_function( loc.function_name() ) );
+        exception_detail::set_info( *this, throw_column( static_cast<int>( loc.column() ) ) );
     }
 
     virtual boost::exception_detail::clone_base const * clone() const BOOST_OVERRIDE

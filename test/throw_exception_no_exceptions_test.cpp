@@ -6,7 +6,7 @@
 #define BOOST_NO_EXCEPTIONS
 
 #include <boost/throw_exception.hpp>
-#include <cstdlib>
+#include <boost/config/std/cstdlib.hpp>
 
 #if defined(_MSC_VER)
 # pragma warning(disable: 4702) // unreachable code

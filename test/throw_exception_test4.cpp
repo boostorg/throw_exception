@@ -5,10 +5,21 @@
 // See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt
 
+#ifdef BOOST_USE_MODULES
+
+import std.compat;
+
+int main()
+{
+    printf("This test depends on Boost.Exception and can't be run with C++20 modules yet\n");
+}
+
+#else
+
 #include <boost/throw_exception.hpp>
 #include <boost/exception/get_error_info.hpp>
 #include <boost/detail/lightweight_test.hpp>
-#include <cstring>
+#include <boost/config/std/cstring.hpp>
 
 class my_exception: public std::exception
 {
@@ -62,7 +73,7 @@ int main()
             int const * line = boost::get_error_info<boost::throw_line>( x );
 
             BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 50 );
+            BOOST_TEST_EQ( *line, 61 );
         }
 
         {
@@ -90,7 +101,7 @@ int main()
             int const * line = boost::get_error_info<boost::throw_line>( x );
 
             BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 78 );
+            BOOST_TEST_EQ( *line, 89 );
         }
 
         {
@@ -118,7 +129,7 @@ int main()
             int const * line = boost::get_error_info<boost::throw_line>( x );
 
             BOOST_TEST( line != 0 );
-            BOOST_TEST_EQ( *line, 106 );
+            BOOST_TEST_EQ( *line, 117 );
         }
 
         {
@@ -131,3 +142,5 @@ int main()
 
     return boost::report_errors();
 }
+
+#endif
