@@ -692,9 +692,6 @@ jobs:
           mkdir __build__ && cd __build__
           cmake \
             -G Ninja \
-            -DCMAKE_CXX_STANDARD=23 \
-            -DBUILD_TESTING=ON \
-            -DBOOST_INCLUDE_LIBRARIES=$LIBRARY \
             -DBOOST_USE_MODULES=ON \
             -DCMAKE_CXX_MODULE_STD=ON \
             -DCMAKE_CXX_SCAN_FOR_MODULES=ON \
@@ -745,11 +742,9 @@ jobs:
           mkdir __build__ && cd __build__
           cmake \
             -G Ninja \
-            -DCMAKE_CXX_STANDARD=23 \
             -DBOOST_INCLUDE_LIBRARIES=$LIBRARY \
             -DCMAKE_INSTALL_PREFIX=~/.local \
             -DBOOST_USE_MODULES=ON \
-            -DCMAKE_CXX_SCAN_FOR_MODULES=ON \
             -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=d0edc3af-4c50-42ea-a356-e2862fe7a444 \
             -DCMAKE_CXX_COMPILER=g++-15 \
             ..
@@ -768,6 +763,7 @@ jobs:
             -DCMAKE_INSTALL_PREFIX=~/.local \
             -DBOOST_USE_MODULES=ON \
             -DCMAKE_CXX_MODULE_STD=ON \
+            -DCMAKE_CXX_SCAN_FOR_MODULES=ON \
             -DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD=d0edc3af-4c50-42ea-a356-e2862fe7a444 \
             -DCMAKE_CXX_COMPILER=g++-15 \
             ..

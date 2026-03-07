@@ -17,6 +17,9 @@ target_link_libraries(boost_throw_exception
 )
 
 if (BOOST_USE_MODULES)
+  # This library exports only headers even with BOOST_USE_MODULES,
+  # but consuming it requires 'import std' and defining BOOST_USE_MODULES
+  target_compile_features(boost_throw_exception INTERFACE cxx_std_23)
   target_compile_definitions(boost_throw_exception INTERFACE BOOST_USE_MODULES)
 endif()
 
