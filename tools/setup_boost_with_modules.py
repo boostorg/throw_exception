@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 
 # This is a temporary workaround to make CIs use the
 # "Boost with C++20 modules" proposal, instead of the regular develop branch
 # Call it instead of depinst
 
-from subprocess import run
+from subprocess import check_call
 import os
 
 def main():
@@ -18,9 +18,9 @@ def main():
 
     for submodule, url in submodules:
         os.chdir(submodule)
-        run(['git', 'remote', 'add', 'modules', url])
-        run(['git', 'fetch', '--depth', '1', 'modules', 'feature/cxx20-modules'])
-        run(['git', 'checkout', 'modules/feature/cxx20-modules'])
+        check_call(['git', 'remote', 'add', 'modules', url])
+        check_call(['git', 'fetch', '--depth', '1', 'modules', 'feature/cxx20-modules'])
+        check_call(['git', 'checkout', 'modules/feature/cxx20-modules'])
         os.chdir('../..')
 
 
